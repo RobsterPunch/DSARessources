@@ -205,7 +205,7 @@
       font-family: var(--font-main);
       line-height: var(--lh-base);
       color: var(--color-ink);
-      background: var(--color-papyrus) url("https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/natural-paper.webp") fixed;
+      background: var(--color-papyrus) url("./images/UI/natural-paper.webp") fixed;
     }
 
     body::before {
@@ -395,8 +395,8 @@
       left: var(--f-x-left, auto);
       width: var(--flower-size);
       height: var(--flower-size);
-      background: url("https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/flower.svg") no-repeat;
-      background-size: contain;
+      color: var(--color-ink);
+      fill: currentColor;
       opacity: .7;
       pointer-events: none;
       transform: rotate(var(--f-rot, 0deg));
@@ -1825,12 +1825,7 @@
       border-radius: var(--radius-s);
     }
 
-    .familiar-main {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-l);
-      min-width: 0;
-    }
+    .familiar-main,
 
     .familiar-stats {
       display: flex;
@@ -2085,7 +2080,7 @@
     .armor-grid {
       flex: 1 1 160px;
       align-content: start;
-      background: url("https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/manequin.png") no-repeat center / contain;
+      background: url("./images/UI/manequin.png") no-repeat center / contain;
     }
 
     .weapon-grid,
@@ -2241,7 +2236,7 @@
       bottom: 0;
       left: calc(-1 * var(--space-m));
       z-index: -1;
-      background: var(--color-papyrus) url("https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/natural-paper.webp") fixed;
+      background: var(--color-papyrus) url("./images/UI/natural-paper.webp") fixed;
       border-bottom: var(--border-sepia);
     }
 
@@ -3908,7 +3903,8 @@
     }
 
     @container (max-width: 719px) {
-        .inventory-section {
+        .inventory-section,
+        .inventory-bag {
           grid-template-columns: minmax(0, 1fr);
         }
 
@@ -3926,9 +3922,6 @@
           text-align: center;
         }
 
-        .inventory-bag {
-          grid-template-columns: minmax(0, 1fr);
-        }
 
         .inventory-details {
           grid-column: 1;
@@ -4328,7 +4321,15 @@
           position: static !important;
         }
 
-        .page-layout[data-page="karte"] {
+        .page-layout[data-page="karte"],
+        .app-nav,
+        .sidebar-actions,
+        .zauber-toolbar,
+        .zauber-nav-filters,
+        #global-tooltip,
+        #app-status,
+        .map-container,
+        button {
           display: none !important;
         }
 
@@ -4345,16 +4346,6 @@
           background: var(--card-surface);
         }
 
-        .app-nav,
-        .sidebar-actions,
-        .zauber-toolbar,
-        .zauber-nav-filters,
-        #global-tooltip,
-        #app-status,
-        .map-container,
-        button {
-          display: none !important;
-        }
 
         .main-container {
           display: block;
@@ -4753,10 +4744,10 @@
   <nav id="app-nav" class="app-nav">
     <div class="sidebar-header">
       <img class="fanprojekt"
-        src="https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/fanprojekt.png"
+        src="./images/UI/fanprojekt.png"
         alt="DSA Charakterbogen" />
       <div class="sidebar-chip" data-sidebar-chip>
-        <img class="sidebar-portrait" data-portrait-display="true" crossorigin="anonymous" alt="Charakterportrait" />
+        <img class="sidebar-portrait" data-portrait-display="true" alt="Charakterportrait" />
         <div class="sidebar-status" data-sidebar-status>
           <div class="sidebar-status-main">
             <div class="sidebar-status-name" data-mirror-name>Darian di Tassarelli</div>
@@ -4930,8 +4921,8 @@
           </div>
 
           <div class="char-portrait">
-            <img data-save-id="portrait" crossorigin="anonymous" decoding="async"
-              src="https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/Malik.gif"
+            <img data-save-id="portrait" decoding="async"
+              src="./images/portraits/Malik.gif"
               alt="Charakterportrait" />
           </div>
 
@@ -5063,7 +5054,7 @@
               <div class="familiar-name" data-save-id="familiar-name" data-placeholder="Name" aria-label="Name des Vertrauten" contenteditable="true"
                 role="textbox"></div>
               <div class="familiar-visual">
-                <img data-familiar-image crossorigin="anonymous" decoding="async" alt="Vertrauter" />
+                <img data-familiar-image decoding="async" alt="Vertrauter" />
               </div>
               <div class="familiar-field">
                 <label class="micro-label" for="familiar-kind">Tierart</label>
@@ -5753,6 +5744,8 @@
     };
     const int = (v) => Math.trunc(num(v));
     const IMPORT_MAX_BYTES = 5 * 1024 * 1024;
+// file://-Seiten: Canvas-Standbilder sind wegen Cross-Origin-Regeln nicht möglich; Bilder direkt anzeigen.
+const IS_FILE_PROTOCOL = window.location.protocol === "file:";
     const STORAGE_KEY = "dsa_character_master";
     const FALLBACK_STORAGE_KEY = "dsa_character_master_fallback_v1";
     const ZAUBER_CACHE_KEY = "dsa_zauber_cache_v1";
@@ -6628,7 +6621,7 @@
         const name = String(typus ?? "").trim();
         const motif = !name || name === "Homebrew"
           ? "none"
-          : `url("https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/${encodeURIComponent(`background_${name.toLowerCase()}.webp`)}")`;
+          : `url("./images/backgrounds/${encodeURIComponent(`background_${name.toLowerCase()}.webp`)}")`;
         document.documentElement.style.setProperty("--typus-motif", motif);
       },
 
@@ -6644,7 +6637,7 @@
         // Bild wie beim Hauptporträt: erster Wortbestandteil des Namens, als Standbild.
         const firstWord = String(this.state.values["familiar-name"] ?? "").trim().split(/\s+/)[0] || "";
         const source = firstWord
-          ? `https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/${encodeURIComponent(firstWord)}.gif`
+          ? `./images/portraits/${encodeURIComponent(firstWord)}.gif`
           : null;
         if (this.state.familiarSource === source) return;
         this.state.familiarSource = source;
@@ -6661,6 +6654,7 @@
       },
 
       freezeImageStill(imgEl, source) {
+        if (IS_FILE_PROTOCOL) { imgEl.src = source; return; }
         const requestId = `${Date.now()}-${Math.random()}`;
         imgEl.dataset.stillRequest = requestId;
         const loader = new Image();
@@ -6716,7 +6710,7 @@
         if (!fullName) return;
         clearTimeout(this.state.portraitTimeout);
         const apply = () => {
-          const source = `https://raw.githubusercontent.com/RobsterPunch/DSARessources/refs/heads/main/${encodeURIComponent(String(fullName).split(" ")[0])}.gif`;
+          const source = `./images/portraits/${encodeURIComponent(String(fullName).split(" ")[0])}.gif`;
           this.state.portraitSource = source;
           document.querySelectorAll('img[data-save-id="portrait"]').forEach((imgEl) => {
             imgEl.src = source;
@@ -6730,6 +6724,7 @@
       },
 
       freezePortraitFrame(imgEl, source) {
+        if (IS_FILE_PROTOCOL) { imgEl.dataset.portraitFor = source; imgEl.src = source; return; }
         const requestId = String(Date.now()) + Math.random();
         imgEl.dataset.portraitRequest = requestId;
         const mainImg = document.querySelector('img[data-save-id="portrait"]');
@@ -7029,7 +7024,7 @@
 
       setupOrnaments() {
         document.querySelectorAll(".ornament-box").forEach((box) => {
-          box.insertAdjacentHTML('beforeend', ["f-tl", "f-tr", "f-bl", "f-br"].map(c => `<div class="flower ${c}"></div>`).join(''));
+          box.insertAdjacentHTML('beforeend', ["f-tl", "f-tr", "f-bl", "f-br"].map(c => `<svg class="flower ${c}" aria-hidden="true"><use href="#ornament-flower"></use></svg>`).join(''));
         });
       },
 
