@@ -855,9 +855,8 @@
     .zauber-card {
       flex: 0 0 auto;
       content-visibility: auto;
-      contain-intrinsic-size: auto 370px;
+      contain-intrinsic-size: auto 423px;
       min-width: 0;
-      min-height: 370px;
     }
 
     .inventory-card-icon,
@@ -928,8 +927,7 @@
     }
 
     .inventory-card-header,
-    .notizen-card-header,
-    .zauber-card-header {
+    .notizen-card-header {
       display: grid;
       align-items: center;
       gap: var(--space-sm);
@@ -1826,13 +1824,13 @@
     }
 
     .familiar-main,
-
     .familiar-stats {
       display: flex;
       flex-direction: column;
       gap: var(--space-l);
       min-width: 0;
     }
+
 
     .familiar-stat {
       display: flex;
@@ -2517,42 +2515,100 @@
       overflow-y: auto;
     }
 
-    .zauber-card-header,
-    .zauber-card-content,
-    .zauber-card-section {
-      position: relative;
-      z-index: 1;
+    /* ---- Spell card (tarot look): origin band, medallion, attributes + TaW, AsP, effect, details ---- */
+
+    .zauber-card {
+      border-width: 5px;
+      border-radius: calc(var(--radius-m) * 2);
+      box-shadow: inset 0 0 0 1px var(--card-accent);
     }
 
-    .zauber-card-header {
-      grid-template-columns: 60px minmax(0, 1fr) 40px;
-      min-height: 96px;
+    .zauber-card:hover {
+      box-shadow: inset 0 0 0 1px var(--card-accent-strong);
+    }
+
+    .zauber-card-band {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-s);
+      padding: 10px 10px 38px;
+      color: var(--color-on-accent);
+      background: var(--card-accent);
+    }
+
+    .zauber-card-band-end {
+      display: flex;
+      align-items: center;
+      gap: var(--space-s);
+      margin-left: auto;
+    }
+
+    .zauber-fav-card {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      line-height: 0;
+      color: inherit;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .zauber-fav-card .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .zauber-fav-card:hover,
+    .zauber-fav-card:focus-visible {
+      color: inherit;
+      background: transparent;
+      outline: none;
+    }
+
+    .zauber-fav-icon-on {
+      display: none;
+    }
+
+    .zauber-card.is-fav .zauber-fav-icon-off,
+    .zauber-fav-card:hover .zauber-fav-icon-off {
+      display: none;
+    }
+
+    .zauber-card.is-fav .zauber-fav-icon-on,
+    .zauber-fav-card:hover .zauber-fav-icon-on {
+      display: block;
+    }
+
+    .zauber-card-body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: -46px;
+      padding: 0 var(--space-m) var(--space-m);
     }
 
     .zauber-header-icon {
-      position: relative;
       display: grid;
+      align-self: center;
       place-items: center;
-      width: 52px;
-      height: 52px;
-      color: var(--card-gold-light);
+      width: 60px;
+      height: 60px;
+      margin-bottom: var(--space-xs);
+      color: var(--color-on-accent);
       background: var(--card-accent);
-      border: 1px solid color-mix(in srgb, var(--card-gold-light) 60%, transparent);
       border-radius: var(--radius-round);
-    }
-
-    .zauber-header-icon::after {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border: 1px dashed color-mix(in srgb, var(--card-gold-light) 45%, transparent);
-      border-radius: inherit;
-      pointer-events: none;
+      box-shadow: 0 0 0 3px var(--card-paper), 0 0 0 5px var(--card-accent);
     }
 
     .zauber-header-icon .icon {
-      width: 34px;
-      height: 34px;
+      width: 44px;
+      height: 44px;
     }
 
     .zauber-card-title {
@@ -2560,141 +2616,40 @@
       margin: 0;
       overflow: hidden;
       font-family: var(--font-main);
-      font-size: var(--fs-m);
+      font-size: var(--fs-l);
       font-weight: var(--fw-bold);
       line-height: var(--lh-tight);
-      letter-spacing: -.025em;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+      text-align: center;
       overflow-wrap: anywhere;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      color: var(--card-gold-light);
+      min-height: calc(2 * var(--lh-tight) * 1em);
+      color: var(--card-accent-strong);
     }
 
-    .zauber-card-meta {
-      margin-top: var(--space-xs);
-      font-family: var(--font-ui);
-      font-size: var(--fs-xs);
-      font-weight: var(--fw-bold);
-      line-height: var(--lh-snug);
-      letter-spacing: var(--tracking-label);
-      text-transform: uppercase;
-      overflow-wrap: anywhere;
-      color: var(--card-gold-light);
-    }
-
-    .zauber-fav-card {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      justify-self: end;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      padding: 0;
-      font-family: var(--font-main);
-      font-size: var(--fs-m);
-      line-height: var(--lh-tight);
-      color: var(--card-gold-light);
-      background: rgba(25, 13, 32, .25);
-      border: 1px solid var(--card-gold);
-      border-radius: var(--radius-m);
-    }
-
-    .zauber-fav-card:hover,
-    .zauber-fav-card:focus-visible {
-      color: var(--color-on-accent);
-      background: rgba(25, 13, 32, .46);
-      outline: 2px solid var(--card-gold-light);
-      outline-offset: 2px;
-    }
-
-    .zauber-card-content {
-      padding: var(--space-sm) var(--space-m) 0;
-    }
-
-    .zauber-card-section {
-      margin: 0;
-      padding: var(--space-sm) 0;
-      background: transparent;
-      border-bottom: 1px solid var(--card-line);
-    }
-
-    .zauber-card-overview {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 58px 66px;
-      align-items: stretch;
-      gap: var(--space-sm);
-      padding-bottom: var(--space-sm);
-    }
-
-    .zauber-card-attributes {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items: stretch;
+    .zauber-card-divider {
+      display: flex;
+      align-items: center;
       gap: var(--space-s);
-      min-width: 0;
     }
 
-    .zauber-attribute {
-      position: relative;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-xxs);
-      min-width: 0;
-      min-height: 42px;
-      margin: 0 -2px -2px 0;
-      padding: var(--space-m) 0 var(--space-xs);
-      font-family: var(--font-ui);
-      font-weight: var(--fw-bold);
-      text-align: center;
-      color: var(--card-ink);
-      background: var(--card-surface);
-      border: var(--border-field);
-      border-radius: 0;
-      transition: background var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
+    .zauber-card-divider::before,
+    .zauber-card-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--card-accent);
     }
 
-    .zauber-attribute-name {
-      position: absolute;
-      top: calc(-30px / 2 - 2px);
-      left: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      font-family: var(--font-ui);
-      font-size: var(--fs-xs);
-      line-height: var(--lh-tight);
-      letter-spacing: var(--tracking-label);
-      color: var(--card-ink);
-      background: color-mix(in srgb, var(--attribute-color) 70%, var(--color-white));
-      border: 2px solid var(--attribute-color);
-      border-radius: var(--radius-round);
-      transform: translateX(-50%);
+    .zauber-card-divider span {
+      width: 8px;
+      height: 8px;
+      background: var(--card-accent);
+      transform: rotate(45deg);
     }
 
-    .zauber-stat {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 0;
-      min-height: 42px;
-      padding: var(--space-s) var(--space-xs);
-      text-align: center;
-      background: rgba(255, 255, 255, .32);
-      border: 1px solid var(--card-line);
-      border-radius: var(--radius-m);
-    }
-
-    .zauber-stat .small-label,
-    .zauber-detail-row .small-label,
-    .zauber-effect-label {
+    .zauber-label {
       display: block;
-      margin-bottom: var(--space-xs);
       font-family: var(--font-ui);
       font-size: var(--fs-xs);
       font-weight: var(--fw-bold);
@@ -2704,146 +2659,68 @@
       color: var(--card-accent-text);
     }
 
-    .zauber-stat-value {
-      display: block;
+    /* Attribute: wie ins Band geprägt (heller als das Band, dunkle Kante oben) */
+    .zauber-card-attributes {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      min-height: calc(1.3rem + 14px);
+    }
+
+    .zauber-attribute {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      line-height: 1;
+      padding-right: var(--space-xs);
+      border-right: 1px solid var(--card-paper);
+    }
+
+    .zauber-attribute-value {
       font-family: var(--font-main);
-      font-size: var(--fs-m);
+      font-size: 1.3rem;
       font-weight: var(--fw-bold);
-      line-height: var(--lh-tight);
-      overflow-wrap: anywhere;
-      color: var(--card-ink);
+    }
+
+    .zauber-attribute-name {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      font-weight: var(--fw-bold);
+      letter-spacing: var(--tracking-label);
+    }
+
+    .zauber-taw-box {
+      display: flex;
+      align-items: center;
+      gap: var(--space-s);
+      height: 28px;
+      box-sizing: border-box;
+      padding: 0 var(--space-s);
+      background: var(--card-paper);
+      border-radius: 14px;
     }
 
     .zauber-taw-card {
-      width: 100%;
+      width: 2.2em;
       min-height: 0;
       padding: 0;
-      font-family: var(--font-ui);
+      font-family: var(--font-main);
       font-size: var(--fs-m);
       font-weight: var(--fw-bold);
-      line-height: var(--lh-tight);
+      line-height: 1.1;
       text-align: center;
-      color: var(--card-ink);
+      color: var(--card-accent-strong);
       background: transparent;
       border: 0;
       border-radius: 0;
     }
 
-    .zauber-card-info {
-      padding: var(--space-sm) 0;
-    }
-
-    .zauber-section-heading {
-      display: flex;
-      align-items: center;
-      gap: var(--space-s);
-      margin-bottom: var(--space-s);
-    }
-
-    .zauber-section-icon {
-      display: grid;
-      flex: 0 0 30px;
-      place-items: center;
-      width: 30px;
-      height: 30px;
-      color: var(--card-gold-light);
-      background: var(--card-accent);
-      border: 2px solid var(--card-gold);
-      border-radius: var(--radius-round);
-    }
-
-    .zauber-section-icon .icon {
-      width: 17px;
-      height: 17px;
-    }
-
-    .zauber-section-title {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      min-width: 0;
-      font-family: var(--font-ui);
-      font-size: var(--fs-xs);
-      font-weight: var(--fw-bold);
-      line-height: var(--lh-tight);
-      letter-spacing: var(--tracking-label);
-      text-transform: uppercase;
-      color: var(--card-accent-text);
-    }
-
     .zauber-section-text {
-      margin: 0;
-      padding-left: var(--space-sm);
-      font-size: var(--fs-xs);
-      line-height: var(--lh-base);
-      white-space: pre-line;
-      overflow-wrap: anywhere;
-      color: var(--card-ink);
-    }
-
-    .zauber-detail-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 0;
-    }
-
-    .zauber-detail-grid .zauber-card-section:first-child {
-      padding-right: var(--space-sm);
-    }
-
-    .zauber-detail-row {
-      display: grid;
-      grid-template-columns: minmax(60px, .7fr) minmax(0, 1.3fr);
-      align-items: baseline;
-      gap: var(--space-s);
-      font-size: var(--fs-s);
-      line-height: var(--lh-base);
-    }
-
-    .zauber-detail-row + .zauber-detail-row {
-      margin-top: var(--space-s);
-    }
-
-    .zauber-detail-row .small-label {
-      margin-bottom: 0;
-    }
-
-    .zauber-detail-row span:last-child {
-      white-space: pre-line;
-      overflow-wrap: anywhere;
-    }
-
-    .zauber-card-effect {
-      position: relative;
-      margin: var(--space-sm) 0 var(--space-s);
-      padding: var(--space-sm) var(--space-sm) var(--space-sm);
-      color: var(--card-accent-text);
-      background: var(--surface-1);
-      border: 1px solid color-mix(in srgb, var(--card-accent) 55%, var(--card-line));
-      border-radius: var(--radius-m);
-    }
-
-    .zauber-effect-label {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      font-family: var(--font-ui);
-      font-size: var(--fs-xs);
-      font-weight: var(--fw-bold);
-      line-height: var(--lh-tight);
-      letter-spacing: var(--tracking-label);
-      color: var(--card-accent-text);
-    }
-
-    .zauber-effect-label .icon {
-      width: 21px;
-      height: 21px;
-    }
-
-    .zauber-effect-value {
       display: -webkit-box;
-      min-height: 2.5em;
-      margin-top: var(--space-xs);
+      min-width: 0;
+      margin: 0;
       overflow: hidden;
       font-size: var(--fs-s);
       line-height: var(--lh-snug);
@@ -2851,139 +2728,57 @@
       overflow-wrap: anywhere;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      color: var(--card-accent-text);
-    }
-
-    .zauber-card .zauber-card-section.zauber-effect-section {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    .zauber-card.origin-auelfisch {
-      --card-accent: var(--color-auel);
-    }
-
-    .zauber-card.origin-borbaradianisch-gildenmagisch {
-      --card-accent: var(--color-bor);
-    }
-
-    .zauber-card.origin-druidisch {
-      --card-accent: var(--color-druid);
-    }
-
-    .zauber-card.origin-echsisch {
-      --card-accent: var(--color-echs);
-    }
-
-    .zauber-card.origin-firnelfisch {
-      --card-accent: var(--color-firn);
-    }
-
-    .zauber-card.origin-satuarisch {
-      --card-accent: var(--color-satu);
-    }
-
-    .zauber-card.origin-gildenmagisch {
-      --card-accent: var(--color-gild);
-    }
-
-    .zauber-card.origin-schelmisch {
-      --card-accent: var(--color-schelm);
-    }
-
-    .zauber-card.origin-waldelfisch {
-      --card-accent: var(--color-wald);
-    }
-
-    .zauber-attribute-value {
-      font-family: var(--font-main);
-      font-size: var(--fs-m);
-      font-weight: var(--fw-bold);
-      line-height: var(--lh-tight);
+      min-height: calc(2 * var(--lh-snug) * 1em);
       color: var(--card-ink);
     }
 
-    .zauber-stat .small-label {
-      margin-bottom: var(--space-xxs);
-      font-size: var(--fs-xs);
-      color: var(--card-muted);
-    }
-
-    .zauber-asp-section {
-      display: grid;
-      grid-template-columns: 30px minmax(0, 1fr);
-      align-items: center;
-      gap: var(--space-s);
-    }
-
-    .zauber-asp-section .zauber-section-heading {
-      display: flex;
-      flex: 0 0 auto;
-      justify-content: center;
-      margin-bottom: 0;
-    }
-
-    .zauber-asp-section .zauber-section-icon {
-      flex-basis: 28px;
-      width: 28px;
-      height: 28px;
-    }
-
-    .zauber-asp-section .zauber-section-text {
-      min-width: 0;
-      padding-left: 0;
+    .zauber-effect-value {
+      display: -webkit-box;
+      margin-top: var(--space-xxs);
       overflow: hidden;
-      font-size: var(--fs-xs);
-      font-weight: var(--fw-normal);
+      font-size: var(--fs-m);
+      font-style: italic;
       line-height: var(--lh-snug);
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      min-height: calc(2 * var(--lh-snug) * 1em);
       color: var(--card-ink);
     }
 
-    .zauber-card.is-expanded .zauber-asp-section .zauber-section-text {
-      overflow: visible;
-      text-overflow: clip;
-      white-space: pre-line;
-    }
-
-    .zauber-effect-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-s);
-    }
-
+    .zauber-card.is-expanded .zauber-card-title,
+    .zauber-card.is-expanded .zauber-section-text,
     .zauber-card.is-expanded .zauber-effect-value {
       display: block;
+      min-height: 0;
       overflow: visible;
     }
 
     .zauber-details-toggle {
       display: inline-flex;
-      flex: 0 0 auto;
       align-items: center;
-      justify-content: flex-end;
-      gap: var(--space-xs);
+      align-self: center;
+      gap: var(--space-s);
       width: auto;
       margin: 0;
-      padding: 0 0 0 var(--space-s);
+      padding: var(--space-xs) var(--space-m);
       font-family: var(--font-ui);
       font-size: var(--fs-xs);
       font-weight: var(--fw-bold);
       line-height: var(--lh-tight);
       letter-spacing: var(--tracking-label);
       text-transform: uppercase;
-      color: var(--card-accent-text);
-      background: transparent;
+      color: var(--color-on-accent);
+      background: var(--card-accent);
       border: 0;
-      border-radius: 0;
+      border-radius: 999px;
     }
 
     .zauber-details-toggle:hover,
     .zauber-details-toggle:focus-visible {
-      color: var(--card-accent-text);
-      background: transparent;
+      color: var(--color-on-accent);
+      background: var(--card-accent-strong);
       outline: 2px solid color-mix(in srgb, var(--card-accent) 70%, transparent);
       outline-offset: 3px;
     }
@@ -3009,7 +2804,11 @@
     }
 
     .zauber-card.is-expanded .zauber-card-details {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--card-accent);
       animation: dsa-reveal var(--dur-slow) var(--ease-standard);
     }
 
@@ -3024,27 +2823,139 @@
       }
     }
 
-    .zauber-card-details .zauber-detail-grid {
-      grid-template-columns: 1fr;
+    .zauber-detail-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
     }
 
-    .zauber-card-details .zauber-card-section {
-      padding: var(--space-sm) 0;
+    .zauber-probability-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-s);
     }
 
-    .zauber-card-details .zauber-section-text {
-      padding-left: 0;
+    .zauber-probability-value {
+      font-family: var(--font-main);
+      font-size: var(--fs-m);
+      font-weight: var(--fw-bold);
+      white-space: nowrap;
+      color: var(--card-accent-strong);
     }
 
-    .zauber-card-details .zauber-section-icon {
-      flex-basis: 26px;
-      width: 26px;
-      height: 26px;
+    .zauber-probability-bar {
+      height: 8px;
+      margin-top: var(--space-xs);
+      overflow: hidden;
+      background: color-mix(in srgb, var(--card-accent) 20%, transparent);
+      border-radius: 4px;
     }
 
-    .zauber-card-details .zauber-section-icon .icon {
-      width: 15px;
-      height: 15px;
+    .zauber-probability-fill {
+      display: block;
+      height: 100%;
+      background: var(--card-accent);
+      border-radius: inherit;
+    }
+
+    .zauber-detail-block {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      align-items: start;
+      gap: var(--space-sm);
+    }
+
+    .zauber-section-icon {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--color-on-accent);
+      background: var(--card-accent);
+      border-radius: var(--radius-round);
+    }
+
+    .zauber-section-icon .icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .zauber-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-s);
+      min-width: 0;
+    }
+
+    .zauber-detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      font-size: var(--fs-s);
+      line-height: var(--lh-base);
+    }
+
+    .zauber-detail-row span:last-child {
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+    }
+
+    .zauber-card.origin-auelfisch {
+      --card-accent: var(--color-auel);
+    }
+    .zauber-card.origin-borbaradianisch-gildenmagisch {
+      --card-accent: var(--color-bor);
+    }
+    .zauber-card.origin-druidisch {
+      --card-accent: var(--color-druid);
+    }
+    .zauber-card.origin-echsisch {
+      --card-accent: var(--color-echs);
+    }
+    .zauber-card.origin-firnelfisch {
+      --card-accent: var(--color-firn);
+    }
+    .zauber-card.origin-satuarisch {
+      --card-accent: var(--color-satu);
+    }
+    .zauber-card.origin-gildenmagisch {
+      --card-accent: var(--color-gild);
+    }
+    .zauber-card.origin-schelmisch {
+      --card-accent: var(--color-schelm);
+    }
+    .zauber-card.origin-waldelfisch {
+      --card-accent: var(--color-wald);
+    }
+
+    @media (max-width: 560px) {
+        .zauber-card-band {
+          padding: 10px 10px 32px;
+        }
+
+        .zauber-card-body {
+          margin-top: -40px;
+          padding: 0 var(--space-sm) var(--space-sm);
+        }
+
+        .zauber-header-icon {
+          width: 64px;
+          height: 64px;
+        }
+
+        .zauber-header-icon .icon {
+          width: 38px;
+          height: 38px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .zauber-card-attributes {
+          gap: 8px;
+        }
+
     }
 
     .zauber-cards.is-hidden,
@@ -3173,7 +3084,7 @@
     }
 
     .zauber-table tbody tr.is-fav {
-      background: rgba(var(--color-gg-rgb, 197, 154, 35), 0.08);
+      background: rgba(197, 154, 35, 0.08);
     }
 
     .zauber-table tbody tr.is-active {
@@ -3292,118 +3203,8 @@
         }
     }
 
-    @media (max-width: 720px) {
-        .zauber-card-header {
-          grid-template-columns: 44px minmax(0, 1fr) 36px;
-          gap: var(--space-s);
-          padding: var(--space-sm) var(--space-sm) var(--space-sm);
-        }
 
-        .zauber-header-icon {
-          width: 38px;
-          height: 38px;
-        }
 
-        .zauber-header-icon .icon {
-          width: 25px;
-          height: 25px;
-        }
-
-        .zauber-fav-card {
-          width: 30px;
-          height: 30px;
-          font-size: var(--fs-m);
-        }
-
-        .zauber-card-content {
-          padding: var(--space-sm) var(--space-sm) 0;
-        }
-
-        .zauber-card-attributes {
-          justify-content: flex-start;
-        }
-
-        .zauber-section-text {
-          padding-left: 0;
-          font-size: var(--fs-s);
-        }
-
-        .zauber-detail-grid {
-          grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 560px) {
-        .zauber-card-title {
-          font-size: var(--fs-l);
-        }
-
-        .zauber-card-attributes {
-          grid-column: 1 / -1;
-        }
-
-        .zauber-detail-grid .zauber-card-section:first-child {
-          padding-right: 0;
-        }
-
-        .zauber-detail-grid .zauber-card-section:last-child {
-          padding-left: 0;
-          border-left: 0;
-        }
-
-        .zauber-section-text {
-          padding-left: 0;
-        }
-
-        .zauber-card-header {
-          grid-template-columns: 40px minmax(0, 1fr) 36px;
-          gap: var(--space-s);
-          padding: var(--space-sm) var(--space-sm) var(--space-sm);
-        }
-
-        .zauber-header-icon {
-          width: 38px;
-          height: 38px;
-        }
-
-        .zauber-header-icon .icon {
-          width: 23px;
-          height: 23px;
-        }
-
-        .zauber-fav-card {
-          width: 34px;
-          height: 34px;
-        }
-
-        .zauber-card-content {
-          padding: var(--space-m) var(--space-m) 0;
-        }
-
-        .zauber-detail-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .zauber-detail-grid .zauber-card-section + .zauber-card-section {
-          padding-left: 0;
-          border-left: 0;
-        }
-    }
-
-    @media (max-width: 380px) {
-        .zauber-card-overview {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .zauber-card-attributes {
-          grid-column: 1 / -1;
-        }
-
-        .zauber-detail-row {
-          grid-template-columns: 1fr;
-          gap: var(--space-xxs);
-        }
-    }
 
     @container (max-width: 899px) {
         .zauber-table th:nth-child(-n/**/+2),
@@ -4632,7 +4433,6 @@
     <symbol id="icon-nav-talente" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5" /><path d="M8 8h8M8 12h8M8 16h5" /></symbol>
     <symbol id="icon-nav-zauber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.827 15.041c-3.208.814-3.538 1.365-4.26 4.262-1.794 7.206-2.717 5.243-4.258 0-.868-2.953-1.197-3.309-4.259-4.262-4.878-1.518-7.508-2.389 0-4.261 2.985-.744 3.453-1.156 4.259-4.262 1.715-6.612 2.645-5.893 4.259 0 .903 3.296 1.637 3.03 4.259 4.262 3.003 1.411 8.88 2.01 0 4.261z" /><path d="M19.68 7.253c-.097-.125-.441-1.148-.734-1.854-.533-1.287-2.423-.943-2.663-1.61-.1-.28.007-.353 1.189-.794 1.282-.478 1.292-.488 1.753-1.735.616-1.664.78-1.672 1.388-.072.508 1.339.5 1.332 1.843 1.83 1.555.579 1.574.784.126 1.306-1.534.551-1.447.47-1.946 1.83-.422 1.15-.683 1.451-.955 1.098z" /></symbol>
     <symbol id="icon-nav-beute" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.571 12h16.857v7H3.571zm2.208-6.412H18.22V12H5.779zm12.442-.629h3.118V12h-3.118z" /><path d="M2.662 4.959H5.78V12H2.662zM9.705 12h4.59v2.626h-4.59z" /></symbol>
-    <symbol id="icon-nav-beute2" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.571 12h16.857v7H3.571zm0-3.12h16.857V12H3.571zm2.208-3.571H18.22v3.57H5.779zm12.442-.35h3.118v3.92h-3.118z" /><path d="M2.662 4.959H5.78v3.92H2.662zM9.705 12h4.59v2.626h-4.59z" /></symbol>
     <symbol id="icon-nav-fight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5.09 6.802.13-3.814 3.805-.13 11.724 11.75-3.935 3.944zm10.788 12.687 5.806-5.819m-2.903 2.909 3.566 3.574" /><path d="M14.975 2.858 12 5.84l3.935 3.944 2.975-2.982-.13-3.814zm-6.91 6.926L3.25 14.607l3.936 3.944L12 13.727zM2.316 13.67l5.806 5.819m-2.902-2.91-3.567 3.574" /></symbol>
     <symbol id="icon-nav-karte" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2zm0 0v14m6-12v14" /></symbol>
     <symbol id="icon-cat-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></symbol>
@@ -4705,7 +4505,7 @@
        d="M15.909 0c-.292.935-.579 1.943-1.735 2.156.916.18 1.527.946 1.625 1.938.269.198.182-1.626 1.78-1.953C16.475 1.92 16.116.947 15.909 0m-4.07 3.303c-1.064 1.026-4.462 4.916-3.805 5.422.322.154 1.228.592 1.584.662zm.55.11c-.857 1.142-2.72 5.575-1.707 6.413 1.841.105 4.434.595 2.932-2.195-.123-.346-.165-.505-.158-.54V7.09l.002-.002.002-.002h.004l.002.002h.002l.002.002c.09.07.532 1.003.634 1.215.158 1.808 2.598.297 1.375-.791-1.06-1.345-2.012-2.77-3.09-4.102zm-7.605.212c-.292.936-.579 1.943-1.735 2.156.916.18 1.527.946 1.625 1.938.268.199.182-1.625 1.78-1.953-1.105-.22-1.463-1.194-1.67-2.14M18.48 8.778c-.195.626-.386 1.3-1.16 1.443.994.195 1.051 1.219 1.111 1.305l.002.002.002.002h.004l.01-.004c.134-.088.18-1.115 1.15-1.315-.739-.147-.98-.8-1.118-1.433zm-2.314.279c-.379.021-1.213.719-1.387 1.08-.495 2.058-.763 4.603-.756 4.945.235-.176.623-1.709 1.342-1.654.347-1.218.55-2.474.86-3.703.212-.505.139-.68-.06-.668m-8.633.086a1 1 0 0 0-.123.011q.264 1.318.547 2.631c-.403-.591-2.971-1.7-3.797-1.978l3.072 3.03c.194-.145.613-.665.764-.85l.002-.002.002-.002.076.351c-.363.347-.686.948-.508 1.414.4 1.419 1.069 4.033.959 3.946a478 478 0 0 0-1.45-4.122L4.69 14.713c.789.79.455 1.325-.373.176-.316-.256-1.78-.545-.988.162.445.541 1.271 1.962 1.857 2.791-.421.54-.738 1.609-1.371 1.615-1.855.916.65 1.95 1.684 1.94 1.304.214 1.839-1.482 3.136-1.381-.31.447-1.988 1.089-2.101 1.854 2.01.624 9.828 1.109 8.072-.354-.547-.442-1.123-1.088-1.789-1.422.328-2.172.762-5.515 1.111-7.467l.34-2.328-3.972-.014c.244 2.536.808 9.456.808 9.456-.31-2.683-.906-6.238-1.357-8.901-.082-1.055-1.55-1.71-2.215-1.697m-3.674.887c-.269 1.11-.435 2.239-.69 3.351-.627 1.48 3.154.747 3.717-.373.345-.171-2.185-2.535-3.027-2.978m14.104 2.699c-1.123.378-3.02 1.376-3.106 1.724l-1.861 5.305c.852.673 1.717 1.392 2.593 2.057.883.405 1.982-.097 2.893-.24 1.668-.43-.629-1.392-1.309-1.55-1.327.027.213-.618.624-.091.877.467 2.072 1.727 2.912.492-.33-1.236-1.978-1.076-2.87-1.488a3.3 3.3 0 0 0-.816-1.104c.14-.084.283-.132.399-.066.394-.45.736-.946 1.117-1.408.562-.502-.477-.297-.701-.116-.378.47-.756 1.03-1.012 1.434a2 2 0 0 0-.207-.13c.384-.398.663-.881.969-1.339l-1.696-.808c-.2.554-.53 1.496-.816 2.314a7 7 0 0 1-.254.266l.01-.08q.376-1.182.713-2.375c-.773-2.114.191-.52.238-.649zm.214.156c-.597.315-2.29 1.833-2.027 2.397 1.867 1.017 2.684.38 2.516-.018-.181-.79-.298-1.591-.489-2.379m1.58 4.68c3.51 2.326 2.047 3.94-1.89 5.527.25.465 10.975-2.462 1.89-5.527m-15.387.062c-1.15.041-8.577 3.539 1.229 5.58.47.098.971.16 1.451.086-3.158-1.393-7.381-3.267-2.54-5.627q-.023-.044-.14-.039m7.794 5.536c-.53.024-.96.112-1.127.296-.233.02-.353.057-.381.098l-.006.01-.002.008v.006l.004.01c.113.238 2.626.636 4.539.244 1.042-.238-1.44-.744-3.027-.672"/></symbol>
     <symbol id="icon-spell-hand" viewBox="0 0 24 24" fill="currentColor">
       <path
-        d="M8.2 11.4V5.2a1.35 1.35 0 0 1 2.7 0v5h.8V3.9a1.35 1.35 0 0 1 2.7 0v6.3h.8V5.1a1.35 1.35 0 0 1 2.7 0v7l.9-1.3a1.35 1.35 0 0 1 2.2 1.55l-3.5 5.1a5 5 0 0 1-4.1 2.15h-1.1a5.15 5.15 0 0 1-4.15-2.1L2.7 13a1.35 1.35 0 0 1 2.2-1.55l2.25 2.85v-2.9z" />
+        d="M5.1 3.714c0-2.523 3.784-2.523 3.784 0v7.008h1.122v-8.83c0-2.523 3.784-2.523 3.784 0v8.83h1.121V3.574c0-2.523 3.784-2.523 3.784 0v9.811l1.262-1.822c1.489-1.788 4.265.168 3.083 2.172l-4.905 7.149c-2.887 4.16-10.124 4.125-13.105.07A22.5 22.5 0 0 1 .674 9.567c-.005-2.5 1.594-3.96 3.084-2.172L5.1 12.404z" />
     </symbol>
     <symbol id="icon-spell-hourglass" viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -7434,11 +7234,11 @@ const IS_FILE_PROTOCOL = window.location.protocol === "file:";
         },
         attributeMarkup(att) {
           const resolved = this.resolveAttribute(att);
-          const color = this.attColors[resolved.requested] || this.attColors[resolved.effective] || "var(--card-accent)";
+          const color = this.attColors[resolved.requested] || this.attColors[resolved.effective] || "var(--color-on-accent)";
           const requested = this.escapeHTML(resolved.requested || att);
           const value = resolved.value === "" ? "–" : this.escapeHTML(resolved.value);
           const ariaLabel = `${resolved.requested || att}: ${resolved.value === "" ? "kein Wert" : resolved.value}`;
-          return `<span class="zauber-attribute" style="--attribute-color:${color}" aria-label="${this.escapeHTML(ariaLabel)}"><span class="zauber-attribute-name">${requested}</span><span class="zauber-attribute-value">${value}</span></span>`;
+          return `<span class="zauber-attribute" style="--attribute-color:${color}" aria-label="${this.escapeHTML(ariaLabel)}"><span class="zauber-attribute-value">${value}</span><span class="zauber-attribute-name">${requested}</span></span>`;
         },
         collator: new Intl.Collator("de"),
         _dataCache: { raw: null, obj: {} },
@@ -7549,87 +7349,74 @@ const IS_FILE_PROTOCOL = window.location.protocol === "file:";
           });
           return rows;
         },
-        probability(row) {
+        favCardIcon() {
+          return `<svg class="icon zauber-fav-icon-on" aria-hidden="true"><use href="#icon-ui-star"></use></svg><svg class="icon zauber-fav-icon-off" aria-hidden="true"><use href="#icon-ui-star-outline"></use></svg>`;
+        },
+        probabilityPercent(row) {
           const values = [row.att1, row.att2, row.att3].map(att => this.attributeValue(att));
-          const taw = num(row.taw);
-          return (Sheet.talentprobeDSA(values[0], values[1], values[2], taw) * 100).toFixed(1).replace(".", ",") + " %";
+          return Sheet.talentprobeDSA(values[0], values[1], values[2], num(row.taw)) * 100;
+        },
+        probability(row) {
+          return this.probabilityPercent(row).toFixed(1).replace(".", ",") + " %";
         },
         displayValue(value) { return value === undefined || value === null || value === "" ? "–" : this.escapeHTML(value); },
         renderCard(row) {
           const attrs = [row.att1, row.att2, row.att3].filter(Boolean).map(att => this.attributeMarkup(att)).join("");
-          const favorite = row.fav ? "★" : "☆";
           const effect = row.wirkung ? this.escapeHTML(row.wirkung) : "Keine Wirkungsbeschreibung vorhanden.";
           const originValues = this.valueList(row.ursprung);
           const originClass = "origin-" + this.normalizeSearch(originValues[0] || "unbekannt").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-          const originText = this.valueText(row.ursprung);
           const id = this.escapeHTML(row.id);
           const isExpanded = this.expandedIds.has(String(row.id));
           const taw = this.escapeHTML(row.taw === "" ? "0" : row.taw);
+          const title = this.escapeHTML(row.spruch || "Unbenannter Zauber");
+          const percent = Math.max(0, Math.min(100, this.probabilityPercent(row)));
+          const detailBlock = (icon, rows) => `<div class="zauber-detail-block">
+                  <div class="zauber-section-icon" aria-hidden="true"><svg class="icon"><use href="#${icon}"></use></svg></div>
+                  <div class="zauber-detail-list">${rows}</div>
+                </div>`;
           return `<article class="zauber-card ${originClass}${row.fav ? " is-fav" : ""}${isExpanded ? " is-expanded" : ""}" data-zid="${id}">
-            <header class="zauber-card-header">
-              <div class="zauber-header-icon" aria-hidden="true"><svg class="icon"><use href="#${this.spellIconForCategory(row.kategorie)}"></use></svg></div>
-              <div>
-                <div class="zauber-card-title">${this.escapeHTML(row.spruch || "Unbenannter Zauber")}</div>
-                <div class="zauber-card-meta">${this.escapeHTML(row.kategorie || "")} · ${this.escapeHTML(originText)}</div>
+            <div class="zauber-card-band">
+              <div class="zauber-card-attributes">${attrs}</div>
+              <div class="zauber-card-band-end">
+                <label class="zauber-taw-box"><span class="zauber-label">TaW</span><input class="zauber-taw-card" data-zauber-taw="${id}" value="${taw}" inputmode="numeric" aria-label="TaW für ${this.escapeHTML(row.spruch || "Zauber")}" /></label>
+                <button type="button" class="zauber-fav-card" data-zid="${id}" title="Favorit" aria-label="${row.fav ? "Favorit entfernen" : "Als Favorit markieren"}">${this.favCardIcon()}</button>
               </div>
-              <button type="button" class="zauber-fav-card" data-zid="${id}" title="Favorit" aria-label="${row.fav ? "Favorit entfernen" : "Als Favorit markieren"}">${favorite}</button>
-            </header>
-            <div class="zauber-card-content">
-              <section class="zauber-card-section zauber-card-overview" aria-label="Primärwerte">
-                <div class="zauber-card-attributes">${attrs || "–"}</div>
-                <div class="zauber-stat"><span class="small-label">TaW</span><input class="zauber-taw-card" data-zauber-taw="${id}" value="${taw}" inputmode="numeric" aria-label="TaW für ${this.escapeHTML(row.spruch || "Zauber")}" /></div>
-                <div class="zauber-stat"><span class="small-label">Erfolg</span><span class="zauber-stat-value">${this.probability(row)}</span></div>
-              </section>
-              <section class="zauber-card-section zauber-card-info zauber-asp-section">
-                <div class="zauber-section-heading">
-                  <div class="zauber-section-icon" aria-label="AsP" title="AsP"><svg class="icon"><use href="#icon-ui-star"></use></svg></div>
-                </div>
+            </div>
+            <div class="zauber-card-body">
+              <div class="zauber-header-icon" aria-hidden="true"><svg class="icon"><use href="#${this.spellIconForCategory(row.kategorie)}"></use></svg></div>
+              <div class="zauber-card-title">${title}</div>
+              <div class="zauber-card-divider" aria-hidden="true"><span></span></div>
+              <div class="zauber-detail-block">
+                <span class="zauber-section-icon" role="img" aria-label="AsP" title="AsP"><svg class="icon"><use href="#icon-nav-zauber"></use></svg></span>
                 <p class="zauber-section-text">${this.displayValue(row.asp)}</p>
-              </section>
-              <section class="zauber-card-section zauber-effect-section">
-                <div class="zauber-card-effect">
-                  <div class="zauber-effect-heading">
-                    <div class="zauber-effect-label">Wirkung</div>
-                    <button type="button" class="zauber-details-toggle${isExpanded ? " is-open" : ""}" data-zauber-details="${id}" aria-expanded="${isExpanded}" aria-controls="zauber-details-${id}">
-                      <span>Details</span>
-                      <svg class="icon zauber-details-toggle-icon" aria-hidden="true"><use href="#icon-expand"></use></svg>
-                    </button>
-                  </div>
-                  <div class="zauber-effect-value">${effect}</div>
-                </div>
-              </section>
+              </div>
+              <div class="zauber-effect-section">
+                <div class="zauber-label">Wirkung</div>
+                <div class="zauber-effect-value">${effect}</div>
+              </div>
+              <button type="button" class="zauber-details-toggle${isExpanded ? " is-open" : ""}" data-zauber-details="${id}" aria-expanded="${isExpanded}" aria-controls="zauber-details-${id}">
+                <span>Details</span>
+                <svg class="icon zauber-details-toggle-icon" aria-hidden="true"><use href="#icon-expand"></use></svg>
+              </button>
               <div class="zauber-card-details" id="zauber-details-${id}"${isExpanded ? "" : " hidden"}>
-                <div class="zauber-detail-grid">
-                  <section class="zauber-card-section zauber-card-info">
-                    <div class="zauber-section-heading">
-                      <div class="zauber-section-icon" aria-hidden="true"><svg class="icon"><use href="#icon-spell-hourglass"></use></svg></div>
-                      <div class="zauber-section-title">Dauer</div>
-                    </div>
-                    ${this.detailLine("Zauberdauer", row.zauberdauer)}
-                    ${this.detailLine("Wirkungsdauer", row.wd)}
-                  </section>
-                  <section class="zauber-card-section zauber-card-info">
-                    <div class="zauber-section-heading">
-                      <div class="zauber-section-icon" aria-hidden="true"><svg class="icon"><use href="#icon-throw"></use></svg></div>
-                      <div class="zauber-section-title">Reichweite</div>
-                    </div>
-                    <p class="zauber-section-text">${this.escapeHTML(row.reichweite || "–")}</p>
-                  </section>
+                <div class="zauber-detail-meta">
+                  ${this.detailLine("Ursprung", this.valueText(row.ursprung) || "–")}
+                  ${this.detailLine("Kategorie", row.kategorie || "–")}
                 </div>
-                <section class="zauber-card-section zauber-card-info">
-                  <div class="zauber-section-heading">
-                    <div class="zauber-section-icon" aria-hidden="true"><svg class="icon"><use href="#icon-spell-hand"></use></svg></div>
-                    <div class="zauber-section-title">Technik</div>
-                  </div>
-                  <p class="zauber-section-text">${this.escapeHTML(row.technik || "Keine Technikbeschreibung vorhanden.")}</p>
-                </section>
+                <div class="zauber-probability">
+                  <div class="zauber-probability-head"><span class="zauber-label">Erfolgswahrscheinlichkeit</span><span class="zauber-probability-value">${this.probability(row)}</span></div>
+                  <div class="zauber-probability-bar" aria-hidden="true"><span class="zauber-probability-fill" style="width:${percent}%"></span></div>
+                </div>
+                ${detailBlock("icon-spell-hourglass", this.detailLine("Zauberdauer", row.zauberdauer) + this.detailLine("Wirkungsdauer", row.wd))}
+                ${detailBlock("icon-throw", this.detailLine("Reichweite", row.reichweite || "–"))}
+                ${detailBlock("icon-spell-hand", this.detailLine("Technik", row.technik || "Keine Technikbeschreibung vorhanden."))}
               </div>
             </div>
           </article>`;
         },
         detailLine(label, value) {
           if (value === undefined || value === null || value === "") return "";
-          return `<div class="zauber-detail-row"><span class="small-label">${label}</span><span>${this.escapeHTML(value)}</span></div>`;
+          return `<div class="zauber-detail-row"><span class="zauber-label">${label}</span><span>${this.escapeHTML(value)}</span></div>`;
         },
         renderCards(rows) {
           const cards = document.getElementById("zauber-cards");
@@ -7760,13 +7547,9 @@ const IS_FILE_PROTOCOL = window.location.protocol === "file:";
           document.querySelectorAll(`[data-zid="${CSS.escape(String(id))}"]`).forEach((el) => {
             if (el.matches("article.zauber-card")) {
               el.classList.toggle("is-fav", Boolean(row.fav));
-              el.querySelectorAll(".zauber-stat").forEach((stat) => {
-                if (stat.querySelector(".small-label")?.textContent !== "Erfolg") return;
-                const value = stat.querySelector(".zauber-stat-value");
-                if (value) value.textContent = this.probability(row);
-              });
+              el.querySelectorAll(".zauber-probability-value").forEach((value) => { value.textContent = this.probability(row); });
+              el.querySelectorAll(".zauber-probability-fill").forEach((fill) => { fill.style.width = Math.max(0, Math.min(100, this.probabilityPercent(row))) + "%"; });
             } else if (el.matches("button.zauber-fav-card")) {
-              el.textContent = row.fav ? "★" : "☆";
               el.setAttribute("aria-label", row.fav ? "Favorit entfernen" : "Als Favorit markieren");
             } else if (el.matches("tr")) {
               el.classList.toggle("is-fav", Boolean(row.fav));
